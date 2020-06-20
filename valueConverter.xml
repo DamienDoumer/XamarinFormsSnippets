@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+			<Title>Create a Value Converter Quickly</Title>
+			<Shortcut>valconv</Shortcut>
+			<Description>Code snippet for generating a value converter quickly</Description>
+			<Author>Damien Doumer (https://doumer.me)</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+        </Header>
+        <Snippet>
+			<Declarations>
+				<Literal>
+					<ID>ConverterName</ID>
+					<ToolTip>The Name of the Converter</ToolTip>
+					<Default>IsNullConverter</Default>
+				</Literal>
+			</Declarations>
+            <Code Language="csharp">
+                <![CDATA[
+                    public class $ConverterName$Converter : IValueConverter
+                    {
+                        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+                        {
+                            bool returenedValue = string.IsNullOrEmpty(value?.ToString()) && value == null;
+                            return !returenedValue;
+                        }
+
+                        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+                        {
+                            return value;
+                        }
+                    }
+                $end$]]>
+            </Code>
+            <Imports>
+                <Import>
+                    <Namespace>System.Globalization</Namespace>
+                    <Namespace>Xamarin.Forms</Namespace>
+                </Import>
+            </Imports>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+			<Title>Create a custom renderer for iOS</Title>
+			<Shortcut>icrend</Shortcut>
+			<Description>Code snippet for generating a custom renderer on iOS for an existing Xamarin Forms View</Description>
+			<Author>Damien Doumer (https://doumer.me)</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+        </Header>
+        <Snippet>
+			<Declarations>
+				<Literal>
+					<ID>MyCustomView</ID>
+					<ToolTip>The Custom View in the shared project</ToolTip>
+					<Default>MyCustomView</Default>
+				</Literal>
+				<Literal>
+					<ID>MyCustomRenderer</ID>
+					<ToolTip>The custom renderer in the platform project</ToolTip>
+					<Default>MyCustomRenderer</Default>
+				</Literal>
+				<Literal>
+					<ID>Control</ID>
+					<ToolTip>The existing control you want to customize</ToolTip>
+					<Default>Control</Default>
+				</Literal>
+			</Declarations>
+            <Code Language="csharp">
+                <![CDATA[
+                //TODO: Place this ABOVE your namespace
+                [assembly: ExportRenderer(typeof($MyCustomView$), typeof($MyCustomRenderer$))]
+                
+                public class $MyCustomRenderer$ : $Control$Renderer
+                {
+                    public SimpleCustomRenderer(Context context) : base(context)
+                    {
+                    }
+                    
+                    protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
+                    {
+                        base.OnElementChanged(e);
+                    }
+
+                    protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+                    {
+                        base.OnElementPropertyChanged(sender, e);
+                    }
+                }
+                $end$]]>
+            </Code>
+            <Imports>
+                <Import>
+                    <Namespace>Xamarin.Forms.Platform.iOS</Namespace>
+                    <Namespace>Xamarin.Forms</Namespace>
+                </Import>
+            </Imports>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>
