@@ -18,9 +18,9 @@
 					<Default>MyCustomView</Default>
 				</Literal>
 				<Literal>
-					<ID>MyCustomRenderer</ID>
+					<ID>Native</ID>
 					<ToolTip>The custom renderer in the platform project</ToolTip>
-					<Default>MyCustomRenderer</Default>
+					<Default>MyCustom</Default>
 				</Literal>
 				<Literal>
 					<ID>Control</ID>
@@ -31,11 +31,11 @@
             <Code Language="csharp">
                 <![CDATA[
                 //TODO: Place this ABOVE your namespace
-                [assembly: ExportRenderer(typeof($MyCustomView$), typeof($MyCustomRenderer$))]
+                [assembly: ExportRenderer(typeof($MyCustomView$), typeof($Native$Renderer))]
                 
-                public class $MyCustomRenderer$ : $Control$Renderer
+                public class $Native$Renderer : $Control$Renderer
                 {
-                    public SimpleCustomRenderer(Context context) : base(context)
+                    public $Native$Renderer(Context context) : base(context)
                     {
                     }
                     
