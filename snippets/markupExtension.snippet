@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+			<Title>Create a markup extension</Title>
+			<Shortcut>mx</Shortcut>
+			<Description>Code snippet for generating a simple markup extension</Description>
+			<Author>Damien Doumer (https://doumer.me)</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+        </Header>
+        <Snippet>
+			<Declarations>
+				<Literal>
+					<ID>Property</ID>
+					<ToolTip>The name of the content property you are willing to add a narkup for.</ToolTip>
+					<Default>Text</Default>
+				</Literal>
+				<Literal>
+					<ID>Name</ID>
+					<ToolTip>The name of the markup extension</ToolTip>
+					<Default>My</Default>
+				</Literal>
+			</Declarations>
+            <Code Language="csharp">
+                <![CDATA[
+                    [ContentProperty("$Property$")]
+                    public class $Name$Extension : IMarkupExtension
+                    {
+                        public object ProvideValue(IServiceProvider serviceProvider)
+                        {
+                            return "Simple text";
+                        }
+                    }
+                $end$]]>
+            </Code>
+            <Imports>
+                <Import>
+                    <Namespace>Xamarin.Forms.Xaml</Namespace>
+                    <Namespace>Xamarin.Forms</Namespace>
+                </Import>
+            </Imports>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>

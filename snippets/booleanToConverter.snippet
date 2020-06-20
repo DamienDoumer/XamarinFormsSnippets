@@ -2,9 +2,9 @@
 <CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
     <CodeSnippet Format="1.0.0">
         <Header>
-			<Title>Create a Value Converter Quickly</Title>
-			<Shortcut>valconv</Shortcut>
-			<Description>Code snippet for generating a value converter quickly</Description>
+			<Title>Create a Value Converter that converts from boolean to another value</Title>
+			<Shortcut>boolconv</Shortcut>
+			<Description>Code snippet for generating a boolean to value converter quickly</Description>
 			<Author>Damien Doumer (https://doumer.me)</Author>
 			<SnippetTypes>
 				<SnippetType>Expansion</SnippetType>
@@ -13,24 +13,32 @@
         <Snippet>
 			<Declarations>
 				<Literal>
-					<ID>ConverterName</ID>
-					<ToolTip>The Name of the Converter</ToolTip>
-					<Default>IsNullConverter</Default>
+					<ID>Type</ID>
+					<ToolTip>The type to which the Converter converts to.</ToolTip>
+					<Default>T</Default>
 				</Literal>
 			</Declarations>
             <Code Language="csharp">
                 <![CDATA[
-                    public class $ConverterName$Converter : IValueConverter
+                    public class BooleanToConverter<$Type$> : IValueConverter
                     {
+                        public $Type$ TrueValue { get; set; }
+                        public $Type$ FalseValue { get; set; }
+
                         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
                         {
-                            bool returenedValue = string.IsNullOrEmpty(value?.ToString()) && value == null;
-                            return !returenedValue;
+                            if (value.GetType() != typeof(bool))
+                                return FalseValue;
+
+                            return (bool)value ? TrueValue : FalseValue;
                         }
 
                         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
                         {
-                            return value;
+                            if (value.GetType() != typeof($Type$))
+                                return false;
+
+                            return (($Type$)value).Equals(TrueValue);
                         }
                     }
                 $end$]]>
