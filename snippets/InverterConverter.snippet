@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Create a Value Converter that converts from boolean to another value</Title>
+      <Shortcut>invconv</Shortcut>
+      <Description>Code snippet for generating a boolean inverter converter quickly</Description>
+      <Author>Damien Doumer (https://doumer.me)</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>Name</ID>
+          <ToolTip>The of the Converter.</ToolTip>
+          <Default>BooleanInverter</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[
+                    public class $Name$Converter : IValueConverter
+                    {
+                      public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+                      {
+                          bool? toInvert = value as bool?;
+
+                          return toInvert == null ? false : !toInvert.Value;
+                      }
+
+                      public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+                      {
+                          return Convert(value, targetType, parameter, culture);
+                      }
+                    }
+                $end$]]>
+      </Code>
+      <Imports>
+        <Import>
+          <Namespace>System.Globalization</Namespace>
+        </Import>
+        <Import>
+          <Namespace>Xamarin.Forms</Namespace>
+        </Import>
+      </Imports>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
