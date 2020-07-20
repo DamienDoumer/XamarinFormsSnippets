@@ -26,8 +26,10 @@
             <Code Language="csharp">
                 <![CDATA[
                     [ContentProperty("$Property$")]
-                    public class $Name$Extension : IMarkupExtension
+                    public class $Name$MarkupExtension : IMarkupExtension
                     {
+                        public string $Property$ { get; set; }
+
                         public object ProvideValue(IServiceProvider serviceProvider)
                         {
                             return "Simple text";
@@ -38,6 +40,8 @@
             <Imports>
                 <Import>
                     <Namespace>Xamarin.Forms.Xaml</Namespace>
+                </Import>
+                <Import>
                     <Namespace>Xamarin.Forms</Namespace>
                 </Import>
             </Imports>

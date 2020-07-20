@@ -16,4 +16,8 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CustomViews\" />
+  </ItemGroup>
 </Project>

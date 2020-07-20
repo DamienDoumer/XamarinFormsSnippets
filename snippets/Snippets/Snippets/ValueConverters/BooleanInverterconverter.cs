@@ -20,4 +20,5 @@ namespace Snippets.ValueConverters
             return Convert(value, targetType, parameter, culture);
         }
     }
+
 }

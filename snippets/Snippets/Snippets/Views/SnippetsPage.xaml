@@ -5,6 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              Title="Snippets"
+             xmlns:markupExtensions="clr-namespace:Snippets.MarkupExtensions"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
              x:Class="Snippets.Views.SnippetsPage">
 
     <ContentPage.Resources>
@@ -34,7 +36,25 @@
                     <BoxView Grid.Column="1"/>
                 </Grid>
             </StackLayout>
-            
+
+            <StackLayout>
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Humanized Date:"/>
+                            <Span Text=" "/>
+                            <Span Text="{markupExtensions:HumanizedDateMarkup system:DateTime.Now}"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+
+            <StackLayout>
+                <Grid ColumnDefinitions="*,3*">
+                    <Label Text="No Border Entry:"/>
+                    <Entry Grid.Column="1"/>
+                </Grid>
+            </StackLayout>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
