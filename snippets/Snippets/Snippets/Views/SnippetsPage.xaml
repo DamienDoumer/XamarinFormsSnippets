@@ -5,54 +5,82 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              Title="Snippets"
+             xmlns:valueConverters="clr-namespace:Snippets.ValueConverters"
              xmlns:markupExtensions="clr-namespace:Snippets.MarkupExtensions"
              xmlns:system="clr-namespace:System;assembly=netstandard"
+             xmlns:customViews="clr-namespace:Snippets.CustomViews"
              x:Class="Snippets.Views.SnippetsPage">
 
     <ContentPage.Resources>
         <ResourceDictionary>
+
+            <valueConverters:BooleanInverterConverter x:Key="InverterConverter"/>
+            <valueConverters:BooleanToConverter x:Key="BooleanToColorConverter"
+                                                x:TypeArguments="Color"
+                                                TrueValue="Green"
+                                                FalseValue="Red"/>
+
             <Style TargetType="Label">
                 <Setter Property="FontSize" Value="Body"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+
+            <Style TargetType="StackLayout">
+                <Setter Property="Margin" Value="5"/>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     
     <ContentPage.Content>
-        <Grid RowDefinitions="*,*,*">
+        <Grid RowDefinitions="*,*,*,*">
 
             <StackLayout>
                 <Label Text="Boolean Inverter Converter"/>
                 <Grid ColumnDefinitions="*,*">
-                    <Switch />
-                    <Switch Grid.Column="1"/>
+                    <Switch x:Name="InverterSwitch" HorizontalOptions="Center"
+                            VerticalOptions="Center"/>
+                    <Switch Grid.Column="1" HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            IsToggled="{Binding Path=IsToggled, Source={x:Reference InverterSwitch}, Converter={StaticResource InverterConverter}}"/>
                 </Grid>
             </StackLayout>
 
-            <StackLayout>
-                <Label Text="Boolean To Converter"/>
+            <StackLayout Grid.Row="1">
+                <Label Text="Boolean To Converter"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Margin="10"/>
                 <Grid ColumnDefinitions="*,*">
-                    <Switch />
-                    <BoxView Grid.Column="1"/>
+                    <Switch x:Name="ColorSwitch" HorizontalOptions="Center"
+                            VerticalOptions="Center"/>
+                    <BoxView Grid.Column="1"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             CornerRadius="90"
+                             HeightRequest="20"
+                             BackgroundColor="{Binding Path=IsToggled, Source={x:Reference ColorSwitch}, Converter={StaticResource BooleanToColorConverter}}"
+                             WidthRequest="20"/>
                 </Grid>
             </StackLayout>
 
-            <StackLayout>
+            <StackLayout Grid.Row="2">
                 <Label>
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="Humanized Date:"/>
                             <Span Text=" "/>
-                            <Span Text="{markupExtensions:HumanizedDateMarkup system:DateTime.Now}"/>
+                            <Span Text="{markupExtensions:HumanizedDateMarkup 19/07/2020 18:22:21}"/>
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
             </StackLayout>
 
-            <StackLayout>
-                <Grid ColumnDefinitions="*,3*">
+            <StackLayout Grid.Row="3">
+                <Grid ColumnDefinitions="*,*">
                     <Label Text="No Border Entry:"/>
-                    <Entry Grid.Column="1"/>
+                    <customViews:CustomEntry Grid.Column="1" Text="I got no border"/>
                 </Grid>
             </StackLayout>
         </Grid>
